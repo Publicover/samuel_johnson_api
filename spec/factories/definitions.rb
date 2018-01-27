@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :definition do
     name { Faker::StarWars.character }
-    todo_id nil
+    word_id nil
   end
 end

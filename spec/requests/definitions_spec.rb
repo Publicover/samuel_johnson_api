@@ -7,7 +7,7 @@ RSpec.describe 'Definitions API' do
   let(:id) { definitions.first.id }
 
   describe 'GET /words/:word_id/definitions' do
-    before { get "words/#{word_id}/definitions" }
+    before { get "/words/#{word_id}/definitions" }
 
     context 'when word exists' do
       it 'returns status code 200' do
@@ -20,6 +20,7 @@ RSpec.describe 'Definitions API' do
     end
 
     context 'when word does not exist' do
+      let(:word_id) { 0 }
       it 'returns status code 404' do
         expect(response).to have_http_status(404)
       end
@@ -44,6 +45,7 @@ RSpec.describe 'Definitions API' do
     end
 
     context 'when word definition does not exist' do
+      let(:id) { 0 }
       it 'returns status code 404' do
         expect(response).to have_http_status(404)
       end
@@ -81,7 +83,7 @@ RSpec.describe 'Definitions API' do
   describe 'PUT /words/:word_id/definitions/:id' do
     let(:valid_attributes) { { 'name' => 'TEST' } }
 
-    before { put "/words/#{word_id}/definitions/#{id}"}
+    before { put "/words/#{word_id}/definitions/#{id}", params: valid_attributes }
 
     context 'when definition exists' do
       it 'returns status code 204' do
