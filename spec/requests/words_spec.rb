@@ -1,7 +1,7 @@
-require 'rails-helper'
+require 'rails_helper'
 
 RSpec.describe 'Words API' do
-  let(:words) { create_list(:word, 5) }
+  let!(:words) { create_list(:word, 5) }
   let(:word_id) { words.first.id }
 
   describe 'GET words' do
@@ -45,13 +45,13 @@ RSpec.describe 'Words API' do
   end
 
   describe 'POST /words' do
-    let(:valid_attributes) { { name: 'NAME' } }
+    let(:valid_attributes) { { 'name' => 'NAME' } }
 
     context 'when the request is valid' do
       before { post '/words', params: valid_attributes }
 
       it 'creates a word' do
-        expect(json.name).to eq('NAME')
+        expect(json['name']).to eq('NAME')
       end
 
       it 'returns status code 201' do
@@ -60,7 +60,7 @@ RSpec.describe 'Words API' do
     end
 
     context 'when the request is not valid' do
-      before { post '/words', params: nil }
+      before { post '/words' }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -68,7 +68,7 @@ RSpec.describe 'Words API' do
 
       it 'returns Validation Failed' do
         expect(response.body)
-          .to match(/Validation Failed: Name can't be blank/)
+          .to match(/Validation failed: Name can't be blank/)
       end
     end
   end
@@ -77,7 +77,7 @@ RSpec.describe 'Words API' do
     let(:valid_attributes) { { name: 'NAME' } }
 
     context 'when the record exists' do
-      before { put "/words/#{:word_id}", params: valid_attributes }
+      before { put "/words/#{word_id}", params: valid_attributes }
 
       it 'updates the record' do
         expect(response.body).to be_empty
