@@ -1,11 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe 'Words API' do
+  let(:user) { create(:user) }
   let!(:words) { create_list(:word, 5) }
   let(:word_id) { words.first.id }
+  let(:headers) { valid_headers }
 
   describe 'GET words' do
-    before { get '/words' }
+    before { get '/words', params: {}, headers: headers }
 
     it 'returns words' do
       expect(json).not_to be_empty
@@ -18,7 +20,7 @@ RSpec.describe 'Words API' do
   end
 
   describe 'GET /words/:id' do
-    before { get "/words/#{word_id}" }
+    before { get "/words/#{word_id}", params: {}, headers: headers }
 
     context 'when the record exists' do
       it 'returns the word' do
@@ -45,10 +47,10 @@ RSpec.describe 'Words API' do
   end
 
   describe 'POST /words' do
-    let(:valid_attributes) { { 'name' => 'NAME' } }
+    let(:valid_attributes) { { 'name' => 'NAME' }.to_json }
 
     context 'when the request is valid' do
-      before { post '/words', params: valid_attributes }
+      before { post '/words', params: valid_attributes, headers: headers }
 
       it 'creates a word' do
         expect(json['name']).to eq('NAME')
@@ -60,7 +62,7 @@ RSpec.describe 'Words API' do
     end
 
     context 'when the request is not valid' do
-      before { post '/words' }
+      before { post '/words', params: valid_attributes, headers: headers }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -74,10 +76,10 @@ RSpec.describe 'Words API' do
   end
 
   describe 'PUT /words/:id' do
-    let(:valid_attributes) { { name: 'NAME' } }
+    let(:valid_attributes) { { name: 'NAME' }.to_json }
 
     context 'when the record exists' do
-      before { put "/words/#{word_id}", params: valid_attributes }
+      before { put "/words/#{word_id}", params: valid_attributes, headers: headers }
 
       it 'updates the record' do
         expect(response.body).to be_empty
@@ -90,7 +92,7 @@ RSpec.describe 'Words API' do
   end
 
   describe 'DELETE /words/:word_id' do
-    before { delete "/words/#{word_id}" }
+    before { delete "/words/#{word_id}", params: {}, headers: headers }
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)
