@@ -2,27 +2,37 @@ class WordsController < ApplicationController
   before_action :set_word, only: [:show, :update, :destroy]
 
   def index
-    @words = Word.all
-    json_response(@words)
+    if current_user
+      @words = Word.order("RANDOM()").limit(10)
+      json_response(@words)
+    end
   end
 
   def create
-    @word = Word.create!(word_params)
-    json_response(@word, :created)
+    if current_user
+      @word = Word.create!(word_params)
+      json_response(@word, :created)
+    end
   end
 
   def show
-    json_response(@word)
+    if current_user
+      json_response(@word)
+    end
   end
 
   def update
-    @word.update(word_params)
-    head :no_content
+    if current_user
+      @word.update(word_params)
+      head :no_content
+    end
   end
 
   def destroy
-    @word.destroy
-    head :no_content
+    if current_user
+      @word.destroy
+      head :no_content
+    end
   end
 
   private

@@ -1,13 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe 'Definitions API' do
+  let(:user) { create(:user) }
   let!(:word) { create(:word) }
   let!(:definitions) { create_list(:definition, 10, word_id: word.id) }
   let(:word_id) { word.id }
   let(:id) { definitions.first.id }
+  let(:headers) { valid_headers }
 
   describe 'GET /words/:word_id/definitions' do
-    before { get "/words/#{word_id}/definitions" }
+    before { get "/words/#{word_id}/definitions", params: {}, headers: headers }
 
     context 'when word exists' do
       it 'returns status code 200' do
@@ -32,7 +34,7 @@ RSpec.describe 'Definitions API' do
   end
 
   describe 'GET /words/:word_id/definitions/:id' do
-    before { get "/words/#{word_id}/definitions/#{id}" }
+    before { get "/words/#{word_id}/definitions/#{id}", params: {}, headers: headers }
 
     context 'when word definition exists' do
       it 'returns status code 200' do
@@ -57,10 +59,10 @@ RSpec.describe 'Definitions API' do
   end
 
   describe 'POST /words/:word_id/definitions' do
-    let(:valid_attributes) { { 'name' => 'TEST DEFINITION' } }
+    let(:valid_attributes) { { 'name' => 'TEST DEFINITION' }.to_json }
 
     context 'when request attributes are valid' do
-      before { post "/words/#{word_id}/definitions", params: valid_attributes }
+      before { post "/words/#{word_id}/definitions", params: valid_attributes, headers: headers }
 
       it 'returns status code 201' do
         expect(response).to have_http_status(201)
@@ -68,7 +70,7 @@ RSpec.describe 'Definitions API' do
     end
 
     context 'when request attributes are not valid' do
-      before { post "/words/#{word_id}/definitions", params: {} }
+      before { post "/words/#{word_id}/definitions", params: {}, headers: headers }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -81,9 +83,9 @@ RSpec.describe 'Definitions API' do
   end
 
   describe 'PUT /words/:word_id/definitions/:id' do
-    let(:valid_attributes) { { 'name' => 'TEST' } }
+    let(:valid_attributes) { { 'name' => 'TEST' }.to_json }
 
-    before { put "/words/#{word_id}/definitions/#{id}", params: valid_attributes }
+    before { put "/words/#{word_id}/definitions/#{id}", params: valid_attributes, headers: headers }
 
     context 'when definition exists' do
       it 'returns status code 204' do
@@ -110,7 +112,7 @@ RSpec.describe 'Definitions API' do
   end
 
   describe 'DELETE /words/:word_id/definitions/:id' do
-    before { delete "/words/#{word_id}/definitions/#{id}" }
+    before { delete "/words/#{word_id}/definitions/#{id}", params: {}, headers: headers }
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)

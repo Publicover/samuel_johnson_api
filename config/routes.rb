@@ -3,6 +3,6 @@ Rails.application.routes.draw do
   resources :words do
     resources :definitions
   end
-  post 'auth/login', to: 'authenticate#authenticate'
+  post 'auth/login', to: 'authentication#authenticate'
   post 'signup', to: 'users#create'
 end

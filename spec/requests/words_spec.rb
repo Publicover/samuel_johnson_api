@@ -62,7 +62,7 @@ RSpec.describe 'Words API' do
     end
 
     context 'when the request is not valid' do
-      before { post '/words', params: valid_attributes, headers: headers }
+      before { post '/words', params: {}, headers: headers }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
