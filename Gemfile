@@ -34,8 +34,6 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'reek'
 gem 'rubocop', require: false
 gem 'simplecov'
-gem 'pg', '~> 1.0.0'
-gem 'rails_12factor', group: :production
 gem 'jwt'
 gem 'rack-cors', :require => 'rack/cors'
 
@@ -64,6 +62,12 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
+
+group :production do
+  gem 'pg', '~> 1.0.0'
+  gem 'rails_12factor'
+end
+
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
