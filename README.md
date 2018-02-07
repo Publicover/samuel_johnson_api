@@ -1,4 +1,4 @@
-# Samuel Johnson's Dictionary from 1755
+# RESTful API: Samuel Johnson's Dictionary from 1755
 
 This is an RoR app in API mode that returns terms from Samuel Johnson's Dictionary in JSON. The app lives on https://samueljohnsonapi.herokuapp.com. Since it is in API-only mode, there is no front page on heroku, so don't be surprised if the link says the app does not exist. It uses token-based authentication with JWT.
 
