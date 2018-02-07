@@ -8,30 +8,9 @@ class WordsController < ApplicationController
     end
   end
 
-  def create
-    if current_user
-      @word = Word.create!(word_params)
-      json_response(@word, :created)
-    end
-  end
-
   def show
     if current_user
       json_response(@word)
-    end
-  end
-
-  def update
-    if current_user
-      @word.update(word_params)
-      head :no_content
-    end
-  end
-
-  def destroy
-    if current_user
-      @word.destroy
-      head :no_content
     end
   end
 
