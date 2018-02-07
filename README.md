@@ -5,7 +5,7 @@ This is an RoR app in API mode that returns terms from Samuel Johnson's Dictiona
 Users do not have to create a login to use the API since the following credentials have been provided. Include this information in the request header, and include the web token as well. Users must log in at /auth/login to generate a token that will expire in 24 hours. The public name, email and pass are:  
 
 * guest
-* honorsystem@nice.com
+* honorsystem(at)nice.com
 * plznohacks
 
 A GET request to /words/index will return 10 random selections. Otherwise, search as usual for the term. 
