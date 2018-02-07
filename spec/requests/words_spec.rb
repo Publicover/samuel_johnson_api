@@ -48,6 +48,11 @@ RSpec.describe 'Words API' do
     end
   end
 
+  # this started with definitions as their own table with the intent to serialize
+  #   requests. also, users could make changes to the database in case I made an
+  #   error somewhere. in retrospect, I don't really need to do that since I'm
+  #   going to open this up. I'll leave all the tests for user changes, though.
+
   # describe 'POST /words' do
   #   let(:valid_attributes) { { 'name' => 'NAME' }.to_json }
   #
