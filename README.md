@@ -10,6 +10,6 @@ Users do not have to create a login to use the API since the following credentia
 
 A GET request to /words/index will return 10 random selections. Otherwise, search as usual for the term. 
 
-Searches should be done for the word in question. Note that spelling has changed for a few words in the past 150 years. Also, the dictionary uses parenthesis to differentiate between verb tenses and homonymns, so, for example, different results will be returned for "A", "A (abbreviation)" and "A (article)."
+Searches should be done for the word in question. Note that spelling has changed for a few words in the past 150 years. Also, the dictionary uses parenthesis to differentiate between verb tenses, synonymns and senses so, for example, different results will be returned for "A", "A (abbreviation)" and "A (article)."
 
 Documentation for this API coming soon. A more traditional website hosting the digitized version is at johnsonsdictionaryonline.com and is the inspiration for this project. 
