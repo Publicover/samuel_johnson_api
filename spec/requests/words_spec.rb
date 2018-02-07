@@ -2,16 +2,18 @@ require 'rails_helper'
 
 RSpec.describe 'Words API' do
   let(:user) { create(:user) }
-  let!(:words) { create_list(:word, 5) }
+  let!(:words) { create_list(:word, 20) }
   let(:word_id) { words.first.id }
+  let(:definition) { words.first.definition }
   let(:headers) { valid_headers }
 
   describe 'GET words' do
     before { get '/words', params: {}, headers: headers }
 
+    # test index returning list of 10 random words
     it 'returns words' do
       expect(json).not_to be_empty
-      expect(json.size).to eq(5)
+      expect(json.size).to eq(10)
     end
 
     it 'returns status code 200' do
@@ -34,7 +36,7 @@ RSpec.describe 'Words API' do
     end
 
     context 'when the record does not exist' do
-      let(:word_id) { 100 }
+      let(:word_id) { 1_000 }
 
       it 'returns status code 404' do
         expect(response).to have_http_status(404)
