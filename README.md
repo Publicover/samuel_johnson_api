@@ -8,6 +8,8 @@ Users do not have to create a login to use the API since the following credentia
 * honorsystem(at)nice.com
 * plznohacks
 
+If you'd like your own unique credentials, POST name, email and a pw in the request body to /signup. Then POST those credentials in the header to /auth/login per usual.
+
 A GET request to /words/index will return 10 random selections. A GET request to /words/id will return a word and definition as one object. Since the dictionary isn't going to change, create, update and delete are not available to users (though they are in the test suite and error handling system, just in case there's reason to bring them back in the future). 
 
 Searches should be done for the word in question. Note that spelling has changed for a few words in the past 150 years. Also, the dictionary uses parenthesis to differentiate between verb tenses, synonymns and senses so, for example, different results will be returned for "A", "A (abbreviation)" and "A (article)."
