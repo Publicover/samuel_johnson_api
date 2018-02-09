@@ -1,5 +1,5 @@
 class WordsController < ApplicationController
-  before_action :set_word, only: [:show, :update, :destroy]
+  # before_action :set_word, only: [:show]
 
   def index
     if current_user
@@ -10,6 +10,7 @@ class WordsController < ApplicationController
 
   def show
     if current_user
+      @word = Word.find_by name: params[:name]
       json_response(@word)
     end
   end
